@@ -1,0 +1,43 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.4.2/schema.json",
+  "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
+  "files": {
+    "ignoreUnknown": true,
+    "includes": [
+      "**",
+      "!**/node_modules",
+      "!**/.next",
+      "!**/dist",
+      "!**/.pgdata",
+      "!api/openapi.json",
+      "!web/src/api/generated",
+      "!web/src/components/ui"
+    ]
+  },
+  "formatter": { "enabled": true, "indentStyle": "space", "indentWidth": 2, "lineWidth": 120 },
+  "css": { "parser": { "tailwindDirectives": true } },
+  "javascript": { "parser": { "unsafeParameterDecoratorsEnabled": true } },
+  "linter": {
+    "enabled": true,
+    "rules": { "recommended": true }
+  },
+  "assist": { "actions": { "source": { "organizeImports": "on" } } },
+  "overrides": [
+    {
+      "includes": ["api/**"],
+      "javascript": { "formatter": { "quoteStyle": "single" } },
+      "linter": {
+        "rules": {
+          "style": {
+            "useImportType": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["web/**"],
+      "javascript": { "formatter": { "quoteStyle": "double" } },
+      "linter": { "domains": { "next": "recommended", "react": "recommended" } }
+    }
+  ]
+}

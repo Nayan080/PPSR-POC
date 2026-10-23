@@ -1,0 +1,1156 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/api/reference": {
+      "get": {
+        "operationId": "getReferenceData",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReferenceDataDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Reference"
+        ]
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "operationId": "login",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/api/auth/register": {
+      "post": {
+        "operationId": "registerAccount",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterAccountDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/api/auth/me": {
+      "get": {
+        "operationId": "getCurrentAccount",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Auth"
+        ]
+      }
+    },
+    "/api/ppsr/status": {
+      "get": {
+        "operationId": "getPpsrStatus",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PpsrStatusDto"
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "PPSR"
+        ]
+      }
+    },
+    "/api/searches/serial-number": {
+      "post": {
+        "operationId": "searchBySerialNumber",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SerialNumberSearchInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchResultDto"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "The PPSR could not be reached"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Searches"
+        ]
+      }
+    },
+    "/api/searches/organisation-grantor": {
+      "post": {
+        "operationId": "searchByOrganisationGrantor",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganisationGrantorSearchInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchResultDto"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "The PPSR could not be reached"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Searches"
+        ]
+      }
+    },
+    "/api/searches/registration-number": {
+      "post": {
+        "operationId": "searchByRegistrationNumber",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationNumberSearchInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchResultDto"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "The PPSR could not be reached"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Searches"
+        ]
+      }
+    },
+    "/api/searches": {
+      "get": {
+        "operationId": "listSearches",
+        "parameters": [
+          {
+            "name": "q",
+            "required": false,
+            "in": "query",
+            "description": "Filter by criteria, PPSR search number, our reference or client reference",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SearchDto"
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "The PPSR could not be reached"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Searches"
+        ]
+      }
+    },
+    "/api/searches/{id}": {
+      "get": {
+        "operationId": "getSearch",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchResultDto"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "The PPSR could not be reached"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Searches"
+        ]
+      }
+    },
+    "/api/dashboard": {
+      "get": {
+        "operationId": "getDashboardSummary",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardSummaryDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "tags": [
+          "Dashboard"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "PPSR PoC API",
+    "description": "Personal Property Securities Register – proof of concept",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "CollateralClass": {
+        "type": "string",
+        "enum": [
+          "MOTOR_VEHICLE",
+          "WATERCRAFT",
+          "AIRCRAFT",
+          "AGRICULTURE",
+          "OTHER_GOODS",
+          "ALL_PAP",
+          "ALL_PAP_EXCEPT",
+          "ACCOUNT",
+          "INVESTMENT_INSTRUMENT",
+          "INTELLECTUAL_PROPERTY"
+        ]
+      },
+      "CollateralClassOptionDto": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CollateralClass"
+              }
+            ]
+          },
+          "label": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "value",
+          "label"
+        ]
+      },
+      "SerialNumberType": {
+        "type": "string",
+        "enum": [
+          "VIN",
+          "CHASSIS_NUMBER",
+          "MANUFACTURERS_NUMBER",
+          "HIN",
+          "OFFICIAL_NUMBER",
+          "AIRCRAFT_SERIAL"
+        ]
+      },
+      "SerialNumberTypeOptionDto": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SerialNumberType"
+              }
+            ]
+          },
+          "label": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "value",
+          "label"
+        ]
+      },
+      "ReferenceDataDto": {
+        "type": "object",
+        "properties": {
+          "collateralClasses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CollateralClassOptionDto"
+            }
+          },
+          "serialNumberTypes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SerialNumberTypeOptionDto"
+            }
+          }
+        },
+        "required": [
+          "collateralClasses",
+          "serialNumberTypes"
+        ]
+      },
+      "LoginDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "demo@ppsr.test"
+          },
+          "password": {
+            "type": "string",
+            "example": "Password123!"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ]
+      },
+      "AccountDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "customerNumber": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "givenName": {
+            "type": "string"
+          },
+          "familyName": {
+            "type": "string"
+          },
+          "organisationName": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "customerNumber",
+          "email",
+          "givenName",
+          "familyName",
+          "organisationName",
+          "createdAt"
+        ]
+      },
+      "AuthResponseDto": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string"
+          },
+          "account": {
+            "$ref": "#/components/schemas/AccountDto"
+          }
+        },
+        "required": [
+          "accessToken",
+          "account"
+        ]
+      },
+      "RegisterAccountDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 8
+          },
+          "givenName": {
+            "type": "string"
+          },
+          "familyName": {
+            "type": "string"
+          },
+          "organisationName": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "email",
+          "password",
+          "givenName",
+          "familyName"
+        ]
+      },
+      "DataSource": {
+        "type": "string",
+        "enum": [
+          "MOCK",
+          "B2G"
+        ]
+      },
+      "PpsrStatusDto": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DataSource"
+              }
+            ]
+          },
+          "connected": {
+            "type": "boolean"
+          },
+          "detail": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "source",
+          "connected",
+          "detail"
+        ]
+      },
+      "SerialNumberSearchInput": {
+        "type": "object",
+        "properties": {
+          "clientReference": {
+            "type": "string",
+            "description": "Customer's own reference, e.g. a deal or file number",
+            "maxLength": 60
+          },
+          "serialNumberType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SerialNumberType"
+              }
+            ]
+          },
+          "serialNumber": {
+            "type": "string",
+            "example": "6T1BF3FK40X012345"
+          }
+        },
+        "required": [
+          "serialNumberType",
+          "serialNumber"
+        ]
+      },
+      "SearchType": {
+        "type": "string",
+        "enum": [
+          "SERIAL_NUMBER",
+          "ORGANISATION_GRANTOR",
+          "REGISTRATION_NUMBER"
+        ]
+      },
+      "CollateralType": {
+        "type": "string",
+        "enum": [
+          "CONSUMER",
+          "COMMERCIAL"
+        ]
+      },
+      "PartyType": {
+        "type": "string",
+        "enum": [
+          "ORGANISATION",
+          "INDIVIDUAL"
+        ]
+      },
+      "OrganisationIdentifierType": {
+        "type": "string",
+        "enum": [
+          "ABN",
+          "ACN",
+          "ARBN",
+          "ARSN"
+        ]
+      },
+      "PartyDto": {
+        "type": "object",
+        "properties": {
+          "partyType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PartyType"
+              }
+            ]
+          },
+          "organisationName": {
+            "type": "string",
+            "nullable": true
+          },
+          "identifierType": {
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OrganisationIdentifierType"
+              }
+            ]
+          },
+          "identifierNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "givenNames": {
+            "type": "string",
+            "nullable": true
+          },
+          "familyName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "partyType",
+          "organisationName",
+          "identifierType",
+          "identifierNumber",
+          "givenNames",
+          "familyName"
+        ]
+      },
+      "AddressForServiceDto": {
+        "type": "object",
+        "properties": {
+          "contactName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "postalAddress": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "contactName",
+          "email",
+          "postalAddress"
+        ]
+      },
+      "RegistrationSummaryDto": {
+        "type": "object",
+        "properties": {
+          "registrationNumber": {
+            "type": "string"
+          },
+          "collateralType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CollateralType"
+              }
+            ]
+          },
+          "collateralClass": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CollateralClass"
+              }
+            ]
+          },
+          "serialNumberType": {
+            "nullable": true,
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SerialNumberType"
+              }
+            ]
+          },
+          "serialNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "collateralDescription": {
+            "type": "string",
+            "nullable": true
+          },
+          "grantor": {
+            "nullable": true,
+            "description": "Not disclosed for consumer property described by serial number",
+            "type": "object",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PartyDto"
+              }
+            ]
+          },
+          "securedParties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "addressForService": {
+            "$ref": "#/components/schemas/AddressForServiceDto"
+          },
+          "isPmsi": {
+            "type": "boolean"
+          },
+          "isInventory": {
+            "type": "boolean"
+          },
+          "proceedsDescription": {
+            "type": "string",
+            "nullable": true
+          },
+          "startTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "Null means no stated end time"
+          },
+          "lastChanged": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "registrationNumber",
+          "collateralType",
+          "collateralClass",
+          "serialNumberType",
+          "serialNumber",
+          "collateralDescription",
+          "grantor",
+          "securedParties",
+          "addressForService",
+          "isPmsi",
+          "isInventory",
+          "proceedsDescription",
+          "startTime",
+          "endTime",
+          "lastChanged"
+        ]
+      },
+      "WrittenOffNotificationDto": {
+        "type": "object",
+        "properties": {
+          "jurisdiction": {
+            "type": "string",
+            "description": "State or territory that recorded the notification"
+          },
+          "incidentDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "category": {
+            "type": "string",
+            "description": "e.g. Statutory or Repairable write-off"
+          },
+          "damage": {
+            "description": "Decoded damage descriptions",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "jurisdiction",
+          "incidentDate",
+          "category",
+          "damage"
+        ]
+      },
+      "StolenNotificationDto": {
+        "type": "object",
+        "properties": {
+          "jurisdiction": {
+            "type": "string"
+          },
+          "reportedDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "summary": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "jurisdiction",
+          "reportedDate",
+          "summary"
+        ]
+      },
+      "VehicleDto": {
+        "type": "object",
+        "properties": {
+          "vin": {
+            "type": "string"
+          },
+          "make": {
+            "type": "string",
+            "nullable": true
+          },
+          "model": {
+            "type": "string",
+            "nullable": true
+          },
+          "year": {
+            "type": "number",
+            "nullable": true
+          },
+          "colour": {
+            "type": "string",
+            "nullable": true
+          },
+          "bodyType": {
+            "type": "string",
+            "nullable": true
+          },
+          "engineNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "registrationPlate": {
+            "type": "string",
+            "nullable": true
+          },
+          "registrationState": {
+            "type": "string",
+            "nullable": true
+          },
+          "registrationExpiry": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "writtenOff": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WrittenOffNotificationDto"
+            }
+          },
+          "stolen": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StolenNotificationDto"
+            }
+          }
+        },
+        "required": [
+          "vin",
+          "make",
+          "model",
+          "year",
+          "colour",
+          "bodyType",
+          "engineNumber",
+          "registrationPlate",
+          "registrationState",
+          "registrationExpiry",
+          "writtenOff",
+          "stolen"
+        ]
+      },
+      "SearchResultDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "reference": {
+            "type": "string",
+            "description": "Our order reference"
+          },
+          "ppsrSearchNumber": {
+            "type": "string",
+            "description": "Search number issued by the PPSR (appears on the certificate)"
+          },
+          "searchType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SearchType"
+              }
+            ]
+          },
+          "criteriaSummary": {
+            "type": "string"
+          },
+          "clientReference": {
+            "type": "string",
+            "nullable": true
+          },
+          "resultCount": {
+            "type": "number"
+          },
+          "hasVehicleAlert": {
+            "type": "boolean",
+            "description": "Vehicle has a written-off or stolen notification"
+          },
+          "feeCents": {
+            "type": "number",
+            "description": "Amount charged, in cents (incl. GST)"
+          },
+          "source": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DataSource"
+              }
+            ]
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "searchedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Time the PPSR performed the search"
+          },
+          "registrations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RegistrationSummaryDto"
+            }
+          },
+          "vehicle": {
+            "nullable": true,
+            "type": "object",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/VehicleDto"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "reference",
+          "ppsrSearchNumber",
+          "searchType",
+          "criteriaSummary",
+          "clientReference",
+          "resultCount",
+          "hasVehicleAlert",
+          "feeCents",
+          "source",
+          "createdAt",
+          "searchedAt",
+          "registrations",
+          "vehicle"
+        ]
+      },
+      "OrganisationGrantorSearchInput": {
+        "type": "object",
+        "properties": {
+          "clientReference": {
+            "type": "string",
+            "description": "Customer's own reference, e.g. a deal or file number",
+            "maxLength": 60
+          },
+          "identifierType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OrganisationIdentifierType"
+              }
+            ]
+          },
+          "identifierNumber": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "identifierType",
+          "identifierNumber"
+        ]
+      },
+      "RegistrationNumberSearchInput": {
+        "type": "object",
+        "properties": {
+          "clientReference": {
+            "type": "string",
+            "description": "Customer's own reference, e.g. a deal or file number",
+            "maxLength": 60
+          },
+          "registrationNumber": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "registrationNumber"
+        ]
+      },
+      "SearchDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "reference": {
+            "type": "string",
+            "description": "Our order reference"
+          },
+          "ppsrSearchNumber": {
+            "type": "string",
+            "description": "Search number issued by the PPSR (appears on the certificate)"
+          },
+          "searchType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SearchType"
+              }
+            ]
+          },
+          "criteriaSummary": {
+            "type": "string"
+          },
+          "clientReference": {
+            "type": "string",
+            "nullable": true
+          },
+          "resultCount": {
+            "type": "number"
+          },
+          "hasVehicleAlert": {
+            "type": "boolean",
+            "description": "Vehicle has a written-off or stolen notification"
+          },
+          "feeCents": {
+            "type": "number",
+            "description": "Amount charged, in cents (incl. GST)"
+          },
+          "source": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DataSource"
+              }
+            ]
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "reference",
+          "ppsrSearchNumber",
+          "searchType",
+          "criteriaSummary",
+          "clientReference",
+          "resultCount",
+          "hasVehicleAlert",
+          "feeCents",
+          "source",
+          "createdAt"
+        ]
+      },
+      "DashboardSummaryDto": {
+        "type": "object",
+        "properties": {
+          "searchesThisMonth": {
+            "type": "number"
+          },
+          "spendThisMonthCents": {
+            "type": "number",
+            "description": "Total charged this month, in cents"
+          },
+          "withInterests30Days": {
+            "type": "number",
+            "description": "Searches in the last 30 days that found at least one registration"
+          },
+          "vehicleAlerts30Days": {
+            "type": "number",
+            "description": "Searches in the last 30 days with a written-off or stolen vehicle"
+          },
+          "recentSearches": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SearchDto"
+            }
+          }
+        },
+        "required": [
+          "searchesThisMonth",
+          "spendThisMonthCents",
+          "withInterests30Days",
+          "vehicleAlerts30Days",
+          "recentSearches"
+        ]
+      }
+    }
+  }
+}

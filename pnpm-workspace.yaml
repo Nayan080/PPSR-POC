@@ -1,0 +1,11 @@
+packages:
+  - api
+  - web
+allowBuilds:
+  sharp: false
+  unrs-resolver: false
+  "@nestjs/core": true
+  embedded-postgres: true
+  "@embedded-postgres/windows-x64": true
+  esbuild: true
+  "@scarf/scarf": false
