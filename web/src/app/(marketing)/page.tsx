@@ -45,7 +45,7 @@ export default function LandingPage() {
 function Hero() {
   return (
     <section id="home" className="scroll-mt-16 border-b bg-card">
-      <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-12 sm:px-6 md:py-20 lg:grid-cols-[1.1fr_1fr]">
+      <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 md:py-20">
         <div>
           <p className="text-sm font-medium text-primary">PPSR searches for buyers, dealers and lenders</p>
           <h1 className="mt-3 text-3xl leading-tight font-semibold tracking-tight text-balance sm:text-4xl lg:text-[2.75rem]">
@@ -72,53 +72,8 @@ function Hero() {
             ))}
           </ul>
         </div>
-        <SampleResult />
       </div>
     </section>
-  );
-}
-
-/** A static illustration of a result, so visitors see exactly what they get. */
-function SampleResult() {
-  return (
-    <figure aria-label="Example search result" className="rounded-lg border bg-background p-4 shadow-sm sm:p-5">
-      <div className="flex items-start justify-between gap-3 border-b pb-3">
-        <div className="min-w-0">
-          <p className="text-xs text-muted-foreground">Vehicle identification number (VIN)</p>
-          <p className="truncate font-mono text-sm font-medium">MR0FZ22G301234567</p>
-        </div>
-        <span className="shrink-0 rounded-sm border px-1.5 py-0.5 text-[11px] text-muted-foreground">Example</span>
-      </div>
-      <div className="mt-4 grid gap-3">
-        <div className="flex gap-3 rounded-md border border-l-4 border-warning/40 border-l-warning bg-warning/10 p-3 text-sm">
-          <AlertTriangleIcon className="mt-0.5 size-4 shrink-0 text-[oklch(0.5_0.12_70)]" />
-          <div>
-            <p className="font-semibold">2 security interests registered</p>
-            <p className="text-muted-foreground">Contact the secured party before you proceed.</p>
-          </div>
-        </div>
-        <div className="flex gap-3 rounded-md border border-l-4 border-success/30 border-l-success bg-success/5 p-3 text-sm">
-          <ShieldCheckIcon className="mt-0.5 size-4 shrink-0 text-success" />
-          <div>
-            <p className="font-semibold">Not written off or stolen</p>
-            <p className="text-muted-foreground">No notifications recorded for this VIN.</p>
-          </div>
-        </div>
-        <dl className="grid grid-cols-2 gap-x-4 gap-y-3 pt-1 text-sm">
-          {[
-            ["Vehicle", "2020 Toyota HiLux SR5"],
-            ["Registration", "XQ71LM (QLD)"],
-            ["Secured party", "Ridgeline Equipment Leasing"],
-            ["PPSR search no.", "2026102300418"],
-          ].map(([k, v]) => (
-            <div key={k} className="min-w-0">
-              <dt className="text-xs text-muted-foreground">{k}</dt>
-              <dd className="truncate">{v}</dd>
-            </div>
-          ))}
-        </dl>
-      </div>
-    </figure>
   );
 }
 
