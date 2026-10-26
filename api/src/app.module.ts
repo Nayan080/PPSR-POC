@@ -15,8 +15,19 @@ import { SeedService } from './seed/seed.service.js';
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (config: ConfigService) => {
-        const dbUrl = config.get<string>('DATABASE_URL') || 'postgres://ppsr:ppsr@localhost:5433/ppsr';
+        const rawDbUrl = config.get<string>('DATABASE_URL');
+        const dbUrl = rawDbUrl || 'postgres://ppsr:ppsr@localhost:5433/ppsr';
         const isSsl = config.get('DATABASE_SSL') === 'true' || dbUrl.includes('sslmode=');
+
+        try {
+          const parsed = new URL(dbUrl);
+          console.log(
+            `[TypeORM] Connecting to DB host: ${parsed.host}, database: ${parsed.pathname.slice(1)}, ssl: ${Boolean(isSsl)} (DATABASE_URL env set: ${Boolean(rawDbUrl)})`,
+          );
+        } catch {
+          console.log(`[TypeORM] Using DB url (DATABASE_URL env set: ${Boolean(rawDbUrl)})`);
+        }
+
         return {
           type: 'postgres',
           url: dbUrl,
