@@ -16,7 +16,7 @@ import { SeedService } from './seed/seed.service.js';
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
         type: 'postgres',
-        url: config.getOrThrow<string>('DATABASE_URL'),
+        url: config.get<string>('DATABASE_URL', 'postgres://ppsr:ppsr@localhost:5433/ppsr'),
         autoLoadEntities: true,
         // Schema is derived from entities for the PoC; switch to migrations before production.
         synchronize: config.get('DB_SYNCHRONIZE', 'true') === 'true',

@@ -2,10 +2,8 @@
 
 import Link from "next/link";
 import { useGetDashboardSummary } from "@/api/generated/endpoints/dashboard/dashboard";
-import { ErrorSummary } from "@/components/error-summary";
 import { PageHeader } from "@/components/page-header";
 import { Panel } from "@/components/panel";
-import { SerialSearchForm, useRunSearch } from "@/components/search-forms";
 import { SearchTable } from "@/components/search-table";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -15,7 +13,6 @@ import { useAuthStore } from "@/stores/auth-store";
 export default function DashboardScreen() {
   const account = useAuthStore((s) => s.account);
   const { data, isPending } = useGetDashboardSummary();
-  const { serial } = useRunSearch();
 
   const stats = [
     { label: "Searches this month", value: data?.searchesThisMonth },
@@ -36,15 +33,7 @@ export default function DashboardScreen() {
         }
       />
 
-      <Panel
-        title="Quick VIN search"
-        description="Security interests, vehicle details and written-off and stolen checks."
-      >
-        <ErrorSummary error={serial.error} title="The search could not be completed" />
-        <SerialSearchForm compact onSearch={(data) => serial.mutate({ data })} pending={serial.isPending} />
-      </Panel>
-
-      <dl className="mt-6 grid grid-cols-2 divide-x divide-y rounded-md border bg-card lg:grid-cols-4 lg:divide-y-0">
+      <dl className="grid grid-cols-2 divide-x divide-y rounded-md border bg-card lg:grid-cols-4 lg:divide-y-0">
         {stats.map((s) => (
           <div key={s.label} className="px-5 py-4">
             <dt className="text-xs text-muted-foreground">{s.label}</dt>
@@ -69,7 +58,7 @@ export default function DashboardScreen() {
           searches={data?.recentSearches}
           loading={isPending}
           showFee={false}
-          empty="No searches yet. Start with a VIN above."
+          empty="No searches yet. Start a new search."
         />
       </Panel>
     </>
