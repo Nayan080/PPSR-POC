@@ -14,13 +14,18 @@ import { SeedService } from './seed/seed.service.js';
     ConfigModule.forRoot({ isGlobal: true, envFilePath: ['.env.local', '.env'] }),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
-      useFactory: (config: ConfigService) => ({
-        type: 'postgres',
-        url: config.get<string>('DATABASE_URL', 'postgres://ppsr:ppsr@localhost:5433/ppsr'),
-        autoLoadEntities: true,
-        // Schema is derived from entities for the PoC; switch to migrations before production.
-        synchronize: config.get('DB_SYNCHRONIZE', 'true') === 'true',
-      }),
+      useFactory: (config: ConfigService) => {
+        const dbUrl = config.get<string>('DATABASE_URL') || 'postgres://ppsr:ppsr@localhost:5433/ppsr';
+        const isSsl = config.get('DATABASE_SSL') === 'true' || dbUrl.includes('sslmode=');
+        return {
+          type: 'postgres',
+          url: dbUrl,
+          ssl: isSsl ? { rejectUnauthorized: false } : false,
+          autoLoadEntities: true,
+          // Schema is derived from entities for the PoC; switch to migrations before production.
+          synchronize: config.get('DB_SYNCHRONIZE', 'true') === 'true',
+        };
+      },
     }),
     TypeOrmModule.forFeature([Account]),
     CommonModule,
